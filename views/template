@@ -28,7 +28,7 @@
  	<br>
 <?php if($errors != ""){ ?>
     <div class="row">
-      <div class="col s12 m5">
+      <div class="col s12 m8">
         <div class="card-panel red">
           <span class="white-text">
 		<?= $errors ?>
@@ -36,9 +36,9 @@
         </div>
       </div>
     </div>
+<?php } else { ?>
+	<br>	<br>	<br>
 <?php } ?>
-	<br>
-	<br>
 		<?php include($view); ?>
  	<br>
 	<br>

@@ -24,8 +24,10 @@ if(isset($_GET['page'])){
 //	if($_GET['page'] == '')
 
 	/********* VIEWS ************/
-	if(in_array($_GET['page'],scandir('views'))) $view = $_GET['page'];
-	else $view = "404";
+	if(!isset($view)){
+		if(in_array($_GET['page'],scandir('views'))) $view = $_GET['page'];
+		else $view = "404";
+	}
 
 }
 else $view = "login";
