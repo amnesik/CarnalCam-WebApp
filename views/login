@@ -8,14 +8,14 @@
 
 
 <div class="row">
-    <form class="col s12">
+    <form class="col s12" action="/?page=login" method="post">
       <div class="row">
         <div class="input-field col s6">
-          <input id="first_name" type="text" class="validate">
+          <input id="first_name" type="text" class="validate" name="login">
           <label for="first_name">Login</label>
         </div>
         <div class="input-field col s6">
-          <input id="last_name" type="password" class="validate">
+          <input id="last_name" type="password" class="validate" name="pass">
           <label for="last_name">Password</label>
         </div>
 	<div>

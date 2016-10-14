@@ -29,6 +29,8 @@ function curl($method, $url, $datas, $token){
 	if(preg_match('/^[a-zA-Z0-9\.\/\r\n+]*={0,2}$/', $token) && strlen($token)>0){
 		$headers = "-H 'Authorization: JWT $token'";
 	}
-	return shell_exec("$curl_bin -X $method $url $headers $post_datas");
-
+	$curl_rep =  shell_exec("$curl_bin -X $method $url $headers $post_datas -v 2>&1");
+        $status_code = substr($curl_rep,strpos($curl_rep,"< HTTP/1.1 ")+11,3);
+	$reponse = explode("left intact\n",$curl_rep)[1];
+	return array($status_code,$reponse);
 }
