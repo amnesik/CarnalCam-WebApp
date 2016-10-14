@@ -14,7 +14,7 @@ function curl($method, $url, $datas, $token){
 	$headers = "";
 	$post_datas = "";
 	$method = escapeshellarg($method);
-	$url = escapeshellarg($api_url.$url);
+	$url = escapeshellarg(str_replace("//","/",$api_url.$url));
 
 	//post request format
 	if(count($datas)>0){
@@ -26,9 +26,9 @@ function curl($method, $url, $datas, $token){
 	}
 
 	//base64 validation for token
-	if(preg_match('/^[a-zA-Z0-9\/\r\n+]*={0,2}$/', $token) && strlen($token)>0){
+	if(preg_match('/^[a-zA-Z0-9\.\/\r\n+]*={0,2}$/', $token) && strlen($token)>0){
 		$headers = "-H 'Authorization: JWT $token'";
 	}
-	return "$curl_bin -X $method $url $headers $post_datas\n";
+	return shell_exec("$curl_bin -X $method $url $headers $post_datas");
 
 }
