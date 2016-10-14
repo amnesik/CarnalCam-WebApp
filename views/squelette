@@ -11,16 +11,16 @@
   <link href="styles/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
 <body>
-  <nav class="light-blue lighten-1" role="navigation">
+  <nav class="light-green lighten-1" role="navigation">
     <div class="nav-wrapper container"><a id="logo-container" class="brand-logo" href="#">Carnal Cam</a>
-      <ul class="right hide-on-med-and-down">
-        <li><a href="#">Navbar Link</a></li>
+       <ul class="right hide-on-med-and-down">
+        <li><img src="http://cdn.warer.com/media/webcamXP-PRO-logo.png" class="responsive-img" style="zoom:75%"></li>
       </ul>
 
       <ul id="nav-mobile" class="side-nav">
-        <li><a href="#">Navbar Link</a></li>
+        <li>><img src="http://cdn.warer.com/media/webcamXP-PRO-logo.png" class="responsive-img" style="zoom:75%"></li>
       </ul>
-      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+<!--      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>-->
     </div>
   </nav>
 
@@ -34,7 +34,7 @@
 	<br>
 	<br> 
   </div>
-  <footer class="page-footer orange"><!-- style="position:fixed;bottom:0">-->
+  <footer class="page-footer green"><!-- style="position:fixed;bottom:0">-->
     <div class="footer-copyright">
       <div class="container">
       Made by Launay Tony, Durindel Matthieu, Dreyfus Jonh et Romain Luc 2016
