@@ -1,11 +1,16 @@
 <?php
 
+session_start();
 
-$body = file_get_contents('views/'.$_GET['page']);
+include("utilities/config.php");
+include("utilities/functions.php");
 
+
+
+
+/****** VIEWS *********/
+$body = 'views/'.$_GET['page'];
 include('views/squelette');
-
-
 
 
 ?>
