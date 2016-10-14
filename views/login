@@ -1,0 +1,31 @@
+<br>
+
+	<h5>Please Login before accessing app</h5>
+
+<br>
+<br>
+<br>
+
+
+<div class="row">
+    <form class="col s12">
+      <div class="row">
+        <div class="input-field col s6">
+          <input placeholder="Placeholder" id="first_name" type="text" class="validate">
+          <label for="first_name">First Name</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="last_name" type="text" class="validate">
+          <label for="last_name">Last Name</label>
+        </div>
+	<div>
+		<button type='submit' class="waves-effect waves-light btn-large blue">Button</button>
+	</div>
+      </div>
+     </form>
+ </div>
+<br>
+<br>
+<br>
+<br>
+
