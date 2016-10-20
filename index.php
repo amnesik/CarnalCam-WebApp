@@ -14,14 +14,15 @@ if(isset($_GET['page'])){
 			if($_POST['login']!="" && $_POST['pass']!=""){
 				include('work/login.php');
 				$id = identification($_POST['login'],$_POST['pass']);
-				if(strstr(var_export($id,true),"Error")) $errors = $id;
+				if(is_string($id)) $errors = $id;
 				else {
 					$_SESSION["token"] = $id["token"];
-					$_SESSION["usename"] = $id["user"]["usernme"];
+					$_SESSION["usename"] = $id["user"]["username"];
 					$_SESSION["email"] = $id["user"]["email"];
 					$_SESSION["firstName"] = $id["user"]["firstName"];
 					$_SESSION["lastName"] = $id["user"]["lastName"];
                                         $_SESSION["id"] = $id["user"]["id"];
+					$_SESSION["admin"] = $id["user"]["isAdmin"];
 					header('Location: /?page=users');
 					die();
 				}
@@ -29,13 +30,11 @@ if(isset($_GET['page'])){
 			else $errors = "Please specify username and password";
 		}
 	}
-	/*
-	if(isset($_SESSION["token"])){
-		if($_GET['page'] == 'users'){
-			include('work/users.php');
-
-		}
-	}*/
+	if($_GET['page'] == 'users'){
+		include('work/users.php');
+		$users = getUsers();
+		if(is_string($users)) $errors = $users;
+	}
 
 	/********* VIEWS ************/
 	if(!isset($view)){
@@ -46,7 +45,7 @@ if(isset($_GET['page'])){
 
 }
 else $view = "login";
-
+if(isset($_SESSION["admin"])) if($_SESSION["admin"]==true && $view == "login") $view = "users";
 include('views/template');
 
 
