@@ -14,14 +14,25 @@ if(isset($_GET['page'])){
 			if($_POST['login']!="" && $_POST['pass']!=""){
 				include('work/login.php');
 				$id = identification($_POST['login'],$_POST['pass']);
-				if(strstr($id,"Error")) $errors = $id;
-				else $_SESSION["token"] = $id;
+				if(strstr(var_export($id,true),"Error")) $errors = $id;
+				else {
+					$_SESSION["token"] = $id["token"];
+					$_SESSION["usename"] = $id["user"]["usernme"];
+					$_SESSION["email"] = $id["user"]["email"];
+					$_SESSION["firstName"] = $id["user"]["firstName"];
+					$_SESSION["lastName"] = $id["user"]["lastName"];
+                                        $_SESSION["id"] = $id["user"]["id"];
+				}
 			}
 			else $errors = "Please specify username and password";
 		}
 	}
+	if(isset($_SESSION["token"])){
+		if($_GET['page'] == 'users'){
+			include('work/users.php');
 
-//	if($_GET['page'] == '')
+		}
+	}
 
 	/********* VIEWS ************/
 	if(!isset($view)){
