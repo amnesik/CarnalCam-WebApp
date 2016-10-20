@@ -8,13 +8,17 @@
             <div class="card-content white-text">
               <p class="card-title">Add User</p>
 		 <div class="input-field col s6">
-        	  <input id="first_name" type="text" class="validate">
+        	  <input id="first_name" type="text" class="validate" name="firstName">
         	  <label for="first_name">First Name</label>
           	 </div>
         	 <div class="input-field col s6">
         	  <input id="last_name" type="text" class="validate">
         	  <label for="last_name">Last Name</label>
 	         </div>
+                 <div class="input-field col s12">
+                  <input id="first_name" type="email" class="validate">
+                  <label for="first_name">Mail Address</label>
+                 </div>
                  <div class="input-field col s12">
                   <input id="first_name" type="text" class="validate">
                   <label for="first_name">Username</label>
@@ -27,13 +31,15 @@
                   <input id="first_name" type="password" class="validate">
                   <label for="first_name">Repeat password</label>
                  </div>
-		<div class="input-field col s12">
-<!--	          <i class="material-icons prefix">textsms</i>-->
-        	  <input type="text" id="autocomplete-input" class="autocomplete">
-        	  <label for="autocomplete-input">Autocomplete</label>
-        	</div>
-
-                 <p>Populating...</p>
+		 <div>
+			Add to group(s):&nbsp;&nbsp;
+<?php if(is_array($groups)){
+	foreach($groups as $group){		
+?>
+			<input type="checkbox" id="<?= htmlentities($group["name"]) ?>" />
+		      <label for="<?= htmlentities($group["name"]) ?>"><?= htmlentities($group["name"]) ?></label>&nbsp;&nbsp;&nbsp;
+<?php }} ?>
+		 </div>
             </div>
           </div>
         </div>

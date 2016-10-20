@@ -34,7 +34,13 @@ if(isset($_GET['page'])){
 		include('work/users.php');
 		$users = getUsers();
 		if(is_string($users)) $errors = $users;
+		$groups = getGroups();
+		if(is_string($users)) $errors = $users;
+		if(isset($_POST['username'])){
+			
+		}
 	}
+
 
 	/********* VIEWS ************/
 	if(!isset($view)){
