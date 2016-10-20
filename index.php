@@ -41,7 +41,7 @@ if(isset($_GET['page'])){
 	if(!isset($view)){
 		if(in_array($_GET['page'],scandir('views'))) $view = $_GET['page'];
 		else $view = "404";
-		if(($view != "login" || $view != "404") && !isset($_SESSION['id'])) $view = "401";
+		if($view != "login" && $view != "404" && !isset($_SESSION['id'])) $view = "401";
 	}
 
 }

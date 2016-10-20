@@ -11,7 +11,7 @@
 </head>
 <body>
   <nav class="light-green lighten-1" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" class="brand-logo" href="#">Carnal Cam</a>
+    <div class="nav-wrapper container"><a id="logo-container" class="brand-logo" href="/">CarnalCam</a>
        <ul class="right hide-on-med-and-down">
         <li><img src="http://cdn.warer.com/media/webcamXP-PRO-logo.png" class="responsive-img" style="zoom:75%"></li>
       </ul>

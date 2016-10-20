@@ -6,7 +6,8 @@
 <br>
 <br>
 <script>
-	sleep(4);
-	document.location.href="/?page=login";
+	setTimeout(function() {
+	 	document.location.href="/?page=login";
+	}, 2500); 
 </script>
 
