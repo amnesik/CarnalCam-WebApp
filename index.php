@@ -22,22 +22,26 @@ if(isset($_GET['page'])){
 					$_SESSION["firstName"] = $id["user"]["firstName"];
 					$_SESSION["lastName"] = $id["user"]["lastName"];
                                         $_SESSION["id"] = $id["user"]["id"];
+					header('Location: /?page=users');
+					die();
 				}
 			}
 			else $errors = "Please specify username and password";
 		}
 	}
+	/*
 	if(isset($_SESSION["token"])){
 		if($_GET['page'] == 'users'){
 			include('work/users.php');
 
 		}
-	}
+	}*/
 
 	/********* VIEWS ************/
 	if(!isset($view)){
 		if(in_array($_GET['page'],scandir('views'))) $view = $_GET['page'];
 		else $view = "404";
+		if(($view != "login" || $view != "404") && !isset($_SESSION['id'])) $view = "401";
 	}
 
 }

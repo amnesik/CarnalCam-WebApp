@@ -1,0 +1,12 @@
+<br>
+<br>
+<br>
+<h1>Unauthorized</h1>
+<h3>Please login...</h3>
+<br>
+<br>
+<script>
+	sleep(4);
+	document.location.href="/?page=login";
+</script>
+

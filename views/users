@@ -1,0 +1,2 @@
+<p style="text-align:right">Hello <?php echo htmlentities($_SESSION["firstName"])." ".htmlentities($_SESSION["lastName"]); ?></p>
+
