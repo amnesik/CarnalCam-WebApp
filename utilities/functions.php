@@ -23,7 +23,9 @@ function curl($method, $url, $datas, $token){
 			if(!is_array($value)) $post_datas .= urlencode($name)."=".urlencode($value).'&';
 			else {
 				foreach($value as $val){
+					if($val){
 					$post_datas .= urlencode($name)."=".urlencode($val).'&';
+					}
 				}
 			}
 		}
@@ -40,3 +42,6 @@ function curl($method, $url, $datas, $token){
 	$reponse = explode("left intact\n",$curl_rep)[1];
 	return array($status_code,$reponse);
 }
+
+
+
