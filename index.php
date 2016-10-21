@@ -35,8 +35,6 @@ if(isset($_GET['page'])){
 		if(isset($_POST['createUser'])){
 			$added = addUser($_POST['firstName'],$_POST['lastName'],$_POST['email'],$_POST['username'],$_POST['pass1'],$_POST['pass2'],$_POST['groups']);
 			if(is_string($added)) $errors = $added;
-		//	header("Location: /?page=users");
-		//	die();
 		}
 		if(isset($_POST['deleteUser'])){
 			$deleted = deleteUser($_POST['id']);
@@ -56,6 +54,12 @@ if(isset($_GET['page'])){
 			$added = addGroup($_POST['name'],$_POST['users']);
 			if(is_string($added)) $errors = $added;
 		}
+		
+		if(isset($_POST['deleteGroup'])){
+			$deleted = deleteGroup($_POST['id']);
+			if(is_string($deleted)) $errors = $deleted;
+		}
+		
 		$users = getUsers();
         if(is_string($users)) $errors .= $users;
         $groups = getGroups();

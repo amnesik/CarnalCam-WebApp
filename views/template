@@ -23,6 +23,17 @@
 <!--      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>-->
     </div>
   </nav>
+  
+  <nav class="green">
+    <div class="nav-wrapper container">
+      <ul id="nav-mobile" class="left hide-on-med-and-down">
+        <li><a href="/?page=users">Users</a></li>
+        <li><a href="/?page=groups">Groups</a></li>
+      </ul>
+    </div>
+  </nav>
+        
+  
 <!-- Scripts -->
   <script src="js/jquery-2.1.1.min.js"></script>
   <script src="js/materialize.js"></script>
@@ -30,7 +41,6 @@
 <!-- /Scripts -->
 
   <div class="container">
- 	<br>
 <?php if($errors != ""){ ?>
     <div class="row">
       <div class="col s12 m8">
@@ -42,7 +52,7 @@
       </div>
     </div>
 <?php } else { ?>
-	<br>	<br>	<br>
+	<br>
 <?php } ?>
 		<?php include($view); ?>
  	<br>
