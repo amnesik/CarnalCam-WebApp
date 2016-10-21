@@ -16,7 +16,7 @@ function getGroups(){
         else return json_decode($rep[1],true);
 }
 
-function adduser($firstName,$lastName,$email,$user,$pass1,$pass2,$idgroup){
+function addUser($firstName,$lastName,$email,$user,$pass1,$pass2,$idgroup){
 	if(strlen($firstName)>1 && strlen($lastName)>1 && strlen($user)>1){
 		if($pass1 == $pass2){
 			if(strlen($pass1)>5){

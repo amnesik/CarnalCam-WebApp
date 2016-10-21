@@ -20,7 +20,12 @@ function curl($method, $url, $datas, $token){
 	if(count($datas)>0){
 		$post_datas = "";
 		foreach($datas as $name => $value){
-			$post_datas .= urlencode($name)."=".urlencode($value).'&';
+			if(!is_array($value)) $post_datas .= urlencode($name)."=".urlencode($value).'&';
+			else {
+				foreach($value as $val){
+					$post_datas .= urlencode($name)."=".urlencode($val).'&';
+				}
+			}
 		}
 		$post_datas = '--data '.escapeshellarg(substr($post_datas,0,-1));
 	}

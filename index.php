@@ -36,8 +36,9 @@ if(isset($_GET['page'])){
 		if(is_string($users)) $errors = $users;
 		$groups = getGroups();
 		if(is_string($users)) $errors = $users;
-		if(isset($_POST['username'])){
-			
+		if(isset($_POST['createUser'])){
+			$added = addUser($_POST['firstName'],$_POST['lastName'],$_POST['email'],$_POST['username'],$_POST['pass1'],$_POST['pass2'],$_POST['groups']);
+			if(is_string($added)) $errors = $added;
 		}
 	}
 
