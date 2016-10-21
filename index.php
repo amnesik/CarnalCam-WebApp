@@ -59,14 +59,17 @@ if(isset($_GET['page'])){
 			$deleted = deleteGroup($_POST['id']);
 			if(is_string($deleted)) $errors = $deleted;
 		}
-		
 		$users = getUsers();
         if(is_string($users)) $errors .= $users;
         $groups = getGroups();
         if(is_string($groups)) $errors .= $groups;
 	}
 
-
+	if($_GET['page'] == 'logout'){
+		session_destroy();
+		header('Location: /');
+		die();
+	}
 	/********* VIEWS ************/
 	if(!isset($view)){
 		if(in_array($_GET['page'],scandir('views'))) $view = $_GET['page'];

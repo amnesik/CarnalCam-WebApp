@@ -23,16 +23,17 @@
 <!--      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>-->
     </div>
   </nav>
-  
+  <?php if(isset($_SESSION["id"])) { ?>
   <nav class="green">
     <div class="nav-wrapper container">
       <ul id="nav-mobile" class="left hide-on-med-and-down">
         <li><a href="/?page=users">Users</a></li>
         <li><a href="/?page=groups">Groups</a></li>
+		<li><a href="/?page=logout"><i class="material-icons">power_settings_new</i></a></li>
       </ul>
     </div>
   </nav>
-        
+   <?php } ?>
   
 <!-- Scripts -->
   <script src="js/jquery-2.1.1.min.js"></script>
