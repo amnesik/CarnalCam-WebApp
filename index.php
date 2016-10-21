@@ -32,32 +32,34 @@ if(isset($_GET['page'])){
 	}
 	if($_GET['page'] == 'users'){
 		include('work/users.php');
-		$users = getUsers();
-		if(is_string($users)) $errors = $users;
-		$groups = getGroups();
-		if(is_string($groups)) $errors = $users;
 		if(isset($_POST['createUser'])){
 			$added = addUser($_POST['firstName'],$_POST['lastName'],$_POST['email'],$_POST['username'],$_POST['pass1'],$_POST['pass2'],$_POST['groups']);
 			if(is_string($added)) $errors = $added;
-			header("Location: /?page=user");
-			die();
+		//	header("Location: /?page=users");
+		//	die();
 		}
+		if(isset($_POST['deleteUser'])){
+			$deleted = deleteUser($_POST['id']);
+			if(is_string($deleted)) $errors = $deleted;
+		}
+		$users = getUsers();
+		if(is_string($users)) $errors .= $users;
+		$groups = getGroups();
+		if(is_string($groups)) $errors .= $groups;
 	}
 
 
 	if($_GET['page'] == 'groups'){
 		include('work/groups.php');
-                $users = getUsers();
-                if(is_string($users)) $errors = $users;
-                $groups = getGroups();
-                if(is_string($groups)) $errors = $users;
+                
 		if(isset($_POST['createGroup'])){
 			$added = addGroup($_POST['name'],$_POST['users']);
 			if(is_string($added)) $errors = $added;
-			header("Location: /?page=groups");
-			die();
 		}
-//		var_dump($groups);
+		$users = getUsers();
+        if(is_string($users)) $errors .= $users;
+        $groups = getGroups();
+        if(is_string($groups)) $errors .= $groups;
 	}
 
 

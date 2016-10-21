@@ -59,7 +59,8 @@
         <div class="col s10 m10">
           <div class="card blue-grey darken-1">
             <div class="card-content white-text">
-              <span class="card-title"><?= htmlentities($user["firstName"]) ?>  <?= htmlentities($user["lastName"]) ?></span>
+			  <form action="/?page=users" method="post"><input type="hidden" name="deleteUser" value="1"><input type="hidden" name="id" value="<?= htmlentities($user["id"]) ?>"><button class="material-icons" type="submit" style="float:right">clear</button></form>
+              <span class="card-title"><?php if($user["firstName"]!="" && $user["lastName"]!="") {echo htmlentities($user["firstName"]).' '.htmlentities($user["lastName"]);} else echo htmlentities($user["username"]); ?></span>
               <p>email : <?= htmlentities($user["email"]) ?></p>
 
 <?php		if(count($user["groups"])>0){

@@ -20,7 +20,9 @@ function curl($method, $url, $datas, $token){
 	if(count($datas)>0){
 		$post_datas = "";
 		foreach($datas as $name => $value){
-			if(!is_array($value)) $post_datas .= urlencode($name)."=".urlencode($value).'&';
+			if(!is_array($value)){
+				if($value!="") $post_datas .= urlencode($name)."=".urlencode($value).'&';
+			}
 			else {
 				foreach($value as $val){
 					if($val){

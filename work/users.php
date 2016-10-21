@@ -31,7 +31,7 @@ function addUser($firstName,$lastName,$email,$user,$pass1,$pass2,$idgroup){
 				$rep = curl('POST','/user',$datas,$_SESSION['token']);
 				if($rep[0] == "401") return "Session Timeout, Please authenticate...";
 			        else if($rep[0] == "404") return "Error: curl returned 404 error...";
-			        else if($rep[0] != "200") return "Error: Server connection issues....";
+			        else if($rep[0] != "201") return "Error: Server connection issues....";
 				else return true;
 			}
 			else return "Error: Password must be at least 6 characters long";
@@ -39,4 +39,15 @@ function addUser($firstName,$lastName,$email,$user,$pass1,$pass2,$idgroup){
 		else return "Error: both passwords are not same...";
 	}
 	else return "Error: Please specify all champs...";
+}
+
+function deleteUser($id){
+	if($id != ""){
+		$rep = curl('DELETE',"/user/$id",null,$_SESSION['token']);
+		if($rep[0] == "401") return "Session Timeout, Please authenticate...";
+		else if($rep[0] == "404") return "Error: curl returned 404 error...";
+		else if(!strstr($rep[0],"20")) return "Error: Server connection issues....";
+		else return true;
+	}
+	else return "Error: no user id specified...";
 }
