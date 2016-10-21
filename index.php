@@ -51,6 +51,12 @@ if(isset($_GET['page'])){
                 if(is_string($users)) $errors = $users;
                 $groups = getGroups();
                 if(is_string($groups)) $errors = $users;
+		if(isset($_POST['createGroup'])){
+			$added = addGroup($_POST['name'],$_POST['users']);
+			if(is_string($added)) $errors = $added;
+			header("Location: /?page=groups");
+			die();
+		}
 //		var_dump($groups);
 	}
 
