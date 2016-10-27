@@ -65,6 +65,24 @@ if(isset($_GET['page'])){
         if(is_string($groups)) $errors .= $groups;
 	}
 
+	if($_GET['page'] == 'devices'){
+		include('work/devices.php');
+		
+		$users = getDevices();
+        if(is_string($users)) $errors .= $users;
+        $groups = getDevicesGroups();
+        if(is_string($groups)) $errors .= $groups;
+	}
+	
+	if($_GET['page'] == 'devicesgroups'){
+		include('work/devicesgroups.php');
+		
+		$users = getDevices();
+        if(is_string($users)) $errors .= $users;
+        $groups = getDevicesGroups();
+        if(is_string($groups)) $errors .= $groups;
+	}
+	
 	if($_GET['page'] == 'logout'){
 		session_destroy();
 		header('Location: /');
@@ -79,7 +97,7 @@ if(isset($_GET['page'])){
 
 }
 else $view = "login";
-if(isset($_SESSION["admin"])) if($_SESSION["admin"]==true && $view == "login") $view = "users";
+if(isset($_SESSION["admin"])) if($_SESSION["admin"]==true && $view == "login"){ /*$view = "users";*/ header('Location: /?page=users'); die();}
 include('views/template');
 
 

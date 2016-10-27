@@ -71,6 +71,7 @@ if(count($user["groups"])>0){
 			}
 		}
 ?>
+			<span class="material-icons">add</span>
 			</p>
             </div>
           </div>
