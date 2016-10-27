@@ -71,10 +71,14 @@ if(isset($_GET['page'])){
 			$deleted = deleteDevice($_POST['id']);
 			if(is_string($deleted)) $errors = $deleted;
 		}
+		if(isset($_POST['delgroupdevice'])){
+			$deleted = delGroupDevice($_POST['device'],$_POST['group']);
+			if(is_string($deleted)) $errors = $deleted;
+		}
 		$devices = getDevices();
         if(is_string($devices)) $errors .= $devices;
         $groups = getDevicesGroups();
-        if(is_string($devicesgroups)) $errors .= $devicesgroups;
+        if(is_string($groups)) $errors .= $devicesgroups;
 	}
 	
 	if($_GET['page'] == 'devicesgroups'){
