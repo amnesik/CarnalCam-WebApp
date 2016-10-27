@@ -41,3 +41,15 @@ function deleteGroup($id){
 	}
 	else return "Error: no group id specified...";
 }
+
+
+function delGroupDevice($device,$group){
+	if($device != "" && $group != ""){
+		$rep = curl('DELETE',"/devicegroup/removedevice/$group",array("members"=>$device),$_SESSION['token']);
+		if($rep[0] == "401") return "Session Timeout, Please authenticate...";
+		else if($rep[0] == "404") return "Error: curl returned 404 error...";
+		else if(!strstr($rep[0],"20")) return "Error: Server connection issues....";
+		else return true;
+	}
+	else return "Error: group and id are null....";
+}

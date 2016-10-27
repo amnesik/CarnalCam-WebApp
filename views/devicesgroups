@@ -44,7 +44,7 @@
 			foreach($group["members"] as $device){
 				$name = $device["name"] ? htmlentities($device["name"]) : htmlentities($device["identifier"]);
 				//echo '<div class="chip">'.$name.'</div>';
-				echo '<form class="col s3" action="/?page=devices" method="post" id="'.htmlentities($group["id"].$device['id']).'" onclick="showModal(this, \'md1\'); return false;">
+				echo '<form class="col s3" action="/?page=devicesgroups" method="post" id="'.htmlentities($group["id"].$device['id']).'" onclick="showModal(this, \'md1\'); return false;">
 					<input type="hidden" name="delgroupdevice" value="1">
 					<input type="hidden" name="device" value="'.htmlentities($device['id']).'">
 					<input type="hidden" name="group" value="'.htmlentities($group['id']).'">

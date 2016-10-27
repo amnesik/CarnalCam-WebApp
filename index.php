@@ -92,6 +92,10 @@ if(isset($_GET['page'])){
 			$deleted = deleteGroup($_POST['id']);
 			if(is_string($deleted)) $errors = $deleted;
 		}
+		if(isset($_POST['delgroupdevice'])){
+			$deleted = delGroupDevice($_POST['device'],$_POST['group']);
+			if(is_string($deleted)) $errors = $deleted;
+		}
 		$devices = getDevices();
         if(is_string($devices)) $errors .= $devices;
         $groups = getDevicesGroups();
