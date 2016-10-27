@@ -42,3 +42,14 @@ function deleteGroup($id){
 	}
 	else return "Error: no group id specified...";
 }
+
+function delGroupUser($user,$group){
+	if($user != "" && $group != ""){
+		$rep = curl('DELETE',"/usergroup/removeuser/$group",array("members"=>$user),$_SESSION['token']);
+		if($rep[0] == "401") return "Session Timeout, Please authenticate...";
+		else if($rep[0] == "404") return "Error: curl returned 404 error...";
+		else if(!strstr($rep[0],"20")) return "Error: Server connection issues....";
+		else return true;
+	}
+	else return "Error: user and id are null....";
+}

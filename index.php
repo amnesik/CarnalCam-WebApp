@@ -40,6 +40,10 @@ if(isset($_GET['page'])){
 			$deleted = deleteUser($_POST['id']);
 			if(is_string($deleted)) $errors = $deleted;
 		}
+		if(isset($_POST['delgroupuser'])){
+			$deleted = delGroupUser($_POST['user'],$_POST['group']);
+			if(is_string($deleted)) $errors = $deleted;
+		}
 		$users = getUsers();
 		if(is_string($users)) $errors .= $users;
 		$groups = getGroups();
@@ -57,6 +61,10 @@ if(isset($_GET['page'])){
 		
 		if(isset($_POST['deleteGroup'])){
 			$deleted = deleteGroup($_POST['id']);
+			if(is_string($deleted)) $errors = $deleted;
+		}
+		if(isset($_POST['delgroupuser'])){
+			$deleted = delGroupUser($_POST['user'],$_POST['group']);
 			if(is_string($deleted)) $errors = $deleted;
 		}
 		$users = getUsers();
