@@ -67,18 +67,29 @@ if(isset($_GET['page'])){
 
 	if($_GET['page'] == 'devices'){
 		include('work/devices.php');
-		
-		$users = getDevices();
-        if(is_string($users)) $errors .= $users;
+		if(isset($_POST['deleteDevice'])){
+			$deleted = deleteDevice($_POST['id']);
+			if(is_string($deleted)) $errors = $deleted;
+		}
+		$devices = getDevices();
+        if(is_string($devices)) $errors .= $devices;
         $groups = getDevicesGroups();
-        if(is_string($groups)) $errors .= $groups;
+        if(is_string($devicesgroups)) $errors .= $devicesgroups;
 	}
 	
 	if($_GET['page'] == 'devicesgroups'){
 		include('work/devicesgroups.php');
+		if(isset($_POST['createGroup'])){
+			$added = addGroup($_POST['name'],$_POST['devices']);
+			if(is_string($added)) $errors = $added;
+		}
 		
-		$users = getDevices();
-        if(is_string($users)) $errors .= $users;
+		if(isset($_POST['deleteGroup'])){
+			$deleted = deleteGroup($_POST['id']);
+			if(is_string($deleted)) $errors = $deleted;
+		}
+		$devices = getDevices();
+        if(is_string($devices)) $errors .= $devices;
         $groups = getDevicesGroups();
         if(is_string($groups)) $errors .= $groups;
 	}
