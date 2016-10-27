@@ -1,0 +1,79 @@
+<br>
+
+<p style="text-align:right">Hello <b><?php echo htmlentities($_SESSION["firstName"])." ".htmlentities($_SESSION["lastName"]); ?></b></p>
+
+      <div class="row">
+        <div class="col s10 m10">
+          <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+              <p class="card-title">Add Group</p>
+		<form action="" method="post">
+		 <input type="hidden" name="createGroup" value="1">
+		 <div class="input-field col s12">
+        	  <input id="first_name" type="text" class="validate" name="name">
+        	  <label for="first_name">Group Name</label>
+          	  </div>
+			Add to group(s):&nbsp;&nbsp;
+<?php if(is_array($users)){
+	foreach($users as $user){		
+?>
+			<input type="checkbox" name="users[]" value="<?= htmlentities($user["id"]) ?>" id="<?= htmlentities($user["username"]) ?>" />
+		      <label for="<?= htmlentities($user["username"]) ?>"><?php if($user["firstName"]!="" && $user["lastName"]!="") {echo htmlentities($user["firstName"]).' '.htmlentities($user["lastName"]);} else echo htmlentities($user["username"]); ?></label>&nbsp;&nbsp;&nbsp;
+<?php }} ?>
+		<br> <br><button class="btn waves-effect waves-light" type="submit">Submit
+		  </button>
+		 </div>
+		</form>
+	     </div>
+            </div>
+          </div>
+
+
+
+<?php if(is_array($groups)){ 
+	foreach($groups as $group){
+?>
+      <div class="row">
+        <div class="col s10 m10">
+          <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+			<form action="/?page=groups" method="post" id="<?= htmlentities($group["id"]) ?>"><input type="hidden" name="deleteGroup" value="1"><input type="hidden" name="id" value="<?= htmlentities($group["id"]) ?>"><span id="<?= htmlentities($group["id"]) ?>" class="material-icons" type="submit" style="float:right;cursor:pointer" onclick="showModal(this, 'md1'); return false;">clear</span></form>
+              <span class="card-title"><?= htmlentities($group["name"]) ?></span>
+			<br><p>Members: 
+<?php		if(count($group["members"])>0){
+			foreach($group["members"] as $user){
+				echo '<div class="chip">'.$user["firstName"].' '.$user["lastName"].'</div>';
+
+			}
+		}
+?>
+			<div class="chip"><span class="material-icons">add</span></div>
+			</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+<?php }} ?>
+
+
+   <div id="md1" class="modal">
+        <div class="modal-content">
+            <h4>Please Confirm</h4>
+            <p>Are you sure you want to remove this ?</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="waves-effect waves-red btn-flat" onclick="$('#md1').closeModal(); this.submit;">Cancel</a>
+            <a href="#" class="waves-effect waves-green btn-flat" id="md1_YesBtn">Yes</a>
+       </div>
+    </div>
+
+    <!--<a class="waves-effect waves-light btn" href="myLandingPage.html" >Proceed</a>-->
+
+    <script>  
+        function showModal(but, modal){  
+            $('#' + modal).openModal(); 
+            $('#' + modal + '_YesBtn').click(function(){ $('#' + modal).closeModal(); document.forms[but.id].submit();}); 
+        } 
+    </script>
+
