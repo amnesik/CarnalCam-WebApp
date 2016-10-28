@@ -46,6 +46,7 @@ if(isset($_GET['page'])){
 		}
 		//addusergroup
 		if(isset($_POST['addusergroup'])){
+			var_dump($_POST['groups']);
 			$added = addGroupUser($_POST['user'],$_POST['groups']);
 			if(is_string($added)) $errors = $added;
 		}

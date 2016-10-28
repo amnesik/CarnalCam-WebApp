@@ -60,7 +60,7 @@ function addGroupDevice($devices,$group){
 			$rep = curl('POST',"/deviceGroup/$group/members/$device",null,$_SESSION['token']);
 			if($rep[0] == "401") return "Session Timeout, Please authenticate...";
 			else if($rep[0] == "404") return "Error: curl returned 404 error...";
-			else if(!strstr($rep[0],"20")) return "Error: Server connection issues....";
+			else if(!strstr($rep[0],"20")&& $rep[0] != "500") return "Error: Server connection issues....";
 		}
 		return true;
 	}
