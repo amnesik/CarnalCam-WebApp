@@ -53,8 +53,9 @@
 			}
 		}
 ?>
-			<div class="chip"><span class="material-icons">add</span></div>
+			<div class="chip"><span class="material-icons" onclick="add_form('<?= htmlentities($group['id']) ?>')">add</span></div>
 			</p>
+			<div class="to_add_<?= htmlentities($group['id']) ?>"></div>
             </div>
           </div>
         </div>
@@ -80,6 +81,10 @@
         function showModal(but, modal){  
             $('#' + modal).openModal(); 
             $('#' + modal + '_YesBtn').click(function(){ $('#' + modal).closeModal(); document.forms[but.id].submit();}); 
-        } 
+        }
+		function add_form(id){
+			$('.to_add_'+id).html('<br>Add device :<form action="?page=devicesgroups" method="post"><input type="hidden" name="adddevicegroup" value="1"><input type="hidden" name="group" value="'+ id +'"><?php if(is_array($groups)){
+	foreach($devices as $device){	$name = $device["name"] ? $device["name"] : $device["identifier"]; ?><input type="checkbox" name="devices[]" value="<?= htmlentities($device["id"]) ?>" id="<?= htmlentities($device["identifier"]) ?>'+ id +'" /><label for="<?= htmlentities($device["identifier"]) ?>'+ id +'"><?= htmlentities($name) ?></label>&nbsp;&nbsp;&nbsp;<?php }} ?><button type="submit" class="waves-effect waves-light btn"><i class="material-icons right">add</i>add</button></form>');
+		}
     </script>
 

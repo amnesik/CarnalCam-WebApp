@@ -107,7 +107,7 @@ if(count($user["groups"])>0){
             $('#' + modal + '_YesBtn').click(function(){ $('#' + modal).closeModal(); document.forms[but.id].submit();}); 
         } 
 		function add_form(id){
-			$('.to_add_'+id).html('<br>Add group :<form action="?page=users" method="post"><input type="hidden" name="user" value="'+ id +'"><?php if(is_array($groups)){
-	foreach($groups as $group){	?><input type="checkbox" name="groups[]" value="<?= htmlentities($group["id"]) ?>" id="<?= htmlentities($group["name"]).htmlentities($group["name"]) ?>" /><label for="<?= htmlentities($group["name"]).htmlentities($group["name"]) ?>"><?= htmlentities($group["name"]) ?></label>&nbsp;&nbsp;&nbsp;<?php }} ?><a class="waves-effect waves-light btn"><i class="material-icons right">add</i>add</a></form>');
+			$('.to_add_'+id).html('<br>Add group :<form action="?page=users" method="post"><input type="hidden" name="addusergroup" value="1"><input type="hidden" name="user" value="'+ id +'"><?php if(is_array($groups)){
+	foreach($groups as $group){	?><input type="checkbox" name="groups[]" value="<?= htmlentities($group["id"]) ?>" id="<?= htmlentities($group["name"]) ?>'+ id +'" /><label for="<?= htmlentities($group["name"]) ?>'+ id +'"><?= htmlentities($group["name"]) ?></label>&nbsp;&nbsp;&nbsp;<?php }} ?><button class="waves-effect waves-light btn"><i class="material-icons right">add</i>add</button></form>');
 		}
     </script>

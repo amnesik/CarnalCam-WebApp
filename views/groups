@@ -52,8 +52,9 @@
 			}
 		}
 ?>
-			<div class="chip"><span class="material-icons">add</span></div>
+			<div class="chip"><span class="material-icons" onclick="add_form('<?= htmlentities($group['id']) ?>')">add</span></div>
 			</p>
+			<div class="to_add_<?= htmlentities($group['id']) ?>"></div>
             </div>
           </div>
         </div>
@@ -79,6 +80,10 @@
         function showModal(but, modal){  
             $('#' + modal).openModal(); 
             $('#' + modal + '_YesBtn').click(function(){ $('#' + modal).closeModal(); document.forms[but.id].submit();}); 
-        } 
+        }
+		function add_form(id){
+			$('.to_add_'+id).html('<br>Add user :<form action="?page=groups" method="post"><input type="hidden" name="addusergroup" value="1"><input type="hidden" name="group" value="'+ id +'"><?php if(is_array($groups)){
+	foreach($users as $user){ $name = $user["firstName"] ? $user["firstName"].' '.$user["lastName"]	: $user["username"]; ?><input type="checkbox" name="users[]" value="<?= htmlentities($user["id"]) ?>" id="<?= htmlentities($user["username"]) ?>'+ id +'" /><label for="<?= htmlentities($user["username"]) ?>'+ id +'"><?= htmlentities($name) ?></label>&nbsp;&nbsp;&nbsp;<?php }} ?><button type="submit" class="waves-effect waves-light btn"><i class="material-icons right">add</i>add</button></form>');
+		}
     </script>
 

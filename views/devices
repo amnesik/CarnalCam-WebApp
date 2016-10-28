@@ -42,9 +42,9 @@ if(count($device["groups"])>0){
 			}
 		}
 ?>
-			<!--<form action="/?page=devices" method="post">-->
-				<span class="chip"><span class="material-icons">add</span></span>
-			<!--</form>-->
+			<div class="chip"><span class="material-icons" onclick="add_form('<?= htmlentities($device['id']) ?>')">add</span></div>
+			</p>
+			<div class="to_add_<?= htmlentities($device['id']) ?>"></div>
 			</p>
             </div>
           </div>
@@ -72,5 +72,9 @@ if(count($device["groups"])>0){
         function showModal(but, modal){  
             $('#' + modal).openModal(); 
             $('#' + modal + '_YesBtn').click(function(){ $('#' + modal).closeModal(); document.forms[but.id].submit();}); 
-        } 
+        }
+		function add_form(id){
+			$('.to_add_'+id).html('<br>Add group :<form action="?page=devices" method="post"><input type="hidden" name="adddevicegroup" value="1"><input type="hidden" name="device" value="'+ id +'"><?php if(is_array($groups)){
+	foreach($groups as $group){	?><input type="checkbox" name="groups[]" value="<?= htmlentities($group["id"]) ?>" id="<?= htmlentities($group["name"]) ?>'+ id +'" /><label for="<?= htmlentities($group["name"]) ?>'+ id +'"><?= htmlentities($group["name"]) ?></label>&nbsp;&nbsp;&nbsp;<?php }} ?><button class="waves-effect waves-light btn"><i class="material-icons right">add</i>add</button></form>');
+		}
     </script>
