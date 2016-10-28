@@ -44,6 +44,11 @@ if(isset($_GET['page'])){
 			$deleted = delGroupUser($_POST['user'],$_POST['group']);
 			if(is_string($deleted)) $errors = $deleted;
 		}
+		//addusergroup
+		if(isset($_POST['addusergroup'])){
+			$added = addGroupUser($_POST['user'],$_POST['groups']);
+			if(is_string($added)) $errors = $added;
+		}
 		$users = getUsers();
 		if(is_string($users)) $errors .= $users;
 		$groups = getGroups();
@@ -67,6 +72,10 @@ if(isset($_GET['page'])){
 			$deleted = delGroupUser($_POST['user'],$_POST['group']);
 			if(is_string($deleted)) $errors = $deleted;
 		}
+		if(isset($_POST['addusergroup'])){
+			$added = addGroupUser($_POST['users'],$_POST['group']);
+			if(is_string($added)) $errors = $added;
+		}
 		$users = getUsers();
         if(is_string($users)) $errors .= $users;
         $groups = getGroups();
@@ -82,6 +91,10 @@ if(isset($_GET['page'])){
 		if(isset($_POST['delgroupdevice'])){
 			$deleted = delGroupDevice($_POST['device'],$_POST['group']);
 			if(is_string($deleted)) $errors = $deleted;
+		}
+		if(isset($_POST['adddevicegroup'])){
+			$added = addGroupDevice($_POST['device'],$_POST['groups']);
+			if(is_string($added)) $errors = $added;
 		}
 		$devices = getDevices();
         if(is_string($devices)) $errors .= $devices;
@@ -103,6 +116,10 @@ if(isset($_GET['page'])){
 		if(isset($_POST['delgroupdevice'])){
 			$deleted = delGroupDevice($_POST['device'],$_POST['group']);
 			if(is_string($deleted)) $errors = $deleted;
+		}
+		if(isset($_POST['adddevicegroup'])){
+			$added = addGroupDevice($_POST['devices'],$_POST['group']);
+			if(is_string($added)) $errors = $added;
 		}
 		$devices = getDevices();
         if(is_string($devices)) $errors .= $devices;
