@@ -42,7 +42,7 @@ if(count($device["groups"])>0){
 			}
 		}
 ?>
-			<div class="chip"><span class="material-icons" onclick="add_form('<?= htmlentities($device['id']) ?>')">add</span></div>
+			<div class="chip"><span style="cursor:pointer" class="material-icons" onclick="add_form('<?= htmlentities($device['id']) ?>')">add</span></div>
 			</p>
 			<div class="to_add_<?= htmlentities($device['id']) ?>"></div>
 			</p>

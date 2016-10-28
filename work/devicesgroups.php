@@ -20,7 +20,7 @@ function addGroup($name,$users){
 	if($name!=""){
 		$datas = array(
 			"name" => $name,
-			"members" => $users
+			"devices" => $users
 		);
 		$rep = curl('POST','/deviceGroup',$datas,$_SESSION['token']);
 		if($rep[0] == "401") return "Session Timeout, Please authenticate...";
@@ -45,7 +45,7 @@ function deleteGroup($id){
 
 function delGroupDevice($device,$group){
 	if($device != "" && $group != ""){
-		$rep = curl('DELETE',"/devicegroup/removedevice/$group",array("members"=>$device),$_SESSION['token']);
+		$rep = curl('DELETE',"/devicegroup/removedevice/$group",array("devices"=>$device),$_SESSION['token']);
 		if($rep[0] == "401") return "Session Timeout, Please authenticate...";
 		else if($rep[0] == "404") return "Error: curl returned 404 error...";
 		else if(!strstr($rep[0],"20")) return "Error: Server connection issues....";
@@ -57,7 +57,7 @@ function delGroupDevice($device,$group){
 function addGroupDevice($devices,$group){
 	if(count($devices)>0 && $group != ""){
 		foreach($devices as $device){
-			$rep = curl('POST',"/deviceGroup/$group/members/$device",null,$_SESSION['token']);
+			$rep = curl('POST',"/deviceGroup/$group/devices/$device",null,$_SESSION['token']);
 			if($rep[0] == "401") return "Session Timeout, Please authenticate...";
 			else if($rep[0] == "404") return "Error: curl returned 404 error...";
 			else if(!strstr($rep[0],"20")&& $rep[0] != "500") return "Error: Server connection issues....";

@@ -40,8 +40,8 @@
 			<form action="/?page=devicesgroups" method="post" id="<?= htmlentities($group["id"]) ?>"><input type="hidden" name="deleteGroup" value="1"><input type="hidden" name="id" value="<?= htmlentities($group["id"]) ?>"><span id="<?= htmlentities($group["id"]) ?>" class="material-icons" type="submit" style="float:right;cursor:pointer" onclick="showModal(this, 'md1'); return false;">clear</span></form>
               <span class="card-title"><?= htmlentities($group["name"]) ?></span>
 			<br><p>Members: 
-<?php		if(count($group["members"])>0){
-			foreach($group["members"] as $device){
+<?php		if(count($group["devices"])>0){
+			foreach($group["devices"] as $device){
 				$name = $device["name"] ? htmlentities($device["name"]) : htmlentities($device["identifier"]);
 				echo '<form class="col s3" action="/?page=devicesgroups" method="post" id="'.htmlentities($group["id"].$device['id']).'" onclick="showModal(this, \'md1\'); return false;">
 					<input type="hidden" name="delgroupdevice" value="1">
@@ -53,7 +53,7 @@
 			}
 		}
 ?>
-			<div class="chip"><span class="material-icons" onclick="add_form('<?= htmlentities($group['id']) ?>')">add</span></div>
+			<div class="chip"><span style="cursor:pointer" class="material-icons" onclick="add_form('<?= htmlentities($group['id']) ?>')">add</span></div>
 			</p>
 			<div class="to_add_<?= htmlentities($group['id']) ?>"></div>
             </div>
