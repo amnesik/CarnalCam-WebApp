@@ -1,0 +1,12 @@
+<h1>hola quetal</h1>
+
+
+
+
+
+
+<script src="js/sails.io.js"></script>
+
+<script type="text/javascript">
+  io.sails.url = 'http://amnegun:1337/user';
+</script>

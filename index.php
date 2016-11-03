@@ -30,114 +30,124 @@ if(isset($_GET['page'])){
 			else $errors = "Please specify username and password";
 		}
 	}
-	if($_GET['page'] == 'users'){
-		include('work/users.php');
-		if(isset($_POST['createUser'])){
-			$added = addUser($_POST['firstName'],$_POST['lastName'],$_POST['email'],$_POST['username'],$_POST['pass1'],$_POST['pass2'],$_POST['groups']);
-			if(is_string($added)) $errors = $added;
+	if(isset($_SESSION["admin"]) && ($_GET['page'] != "login")){ if($_SESSION["admin"] == true) {
+		if($_GET['page'] == 'users'){
+			include('work/users.php');
+			if(isset($_POST['createUser'])){
+				$added = addUser($_POST['firstName'],$_POST['lastName'],$_POST['email'],$_POST['username'],$_POST['pass1'],$_POST['pass2'],$_POST['groups']);
+				if(is_string($added)) $errors = $added;
+			}
+			if(isset($_POST['deleteUser'])){
+				$deleted = deleteUser($_POST['id']);
+				if(is_string($deleted)) $errors = $deleted;
+			}
+			if(isset($_POST['delgroupuser'])){
+				$deleted = delGroupUser($_POST['user'],$_POST['group']);
+				if(is_string($deleted)) $errors = $deleted;
+			}
+			//addusergroup
+			if(isset($_POST['addusergroup'])){
+				$added = addGroupUser($_POST['user'],$_POST['groups']);
+				if(is_string($added)) $errors = $added;
+			}
+			$users = getUsers();
+			if(is_string($users)) $errors .= $users;
+			$groups = getGroups();
+			if(is_string($groups)) $errors .= $groups;
 		}
-		if(isset($_POST['deleteUser'])){
-			$deleted = deleteUser($_POST['id']);
-			if(is_string($deleted)) $errors = $deleted;
-		}
-		if(isset($_POST['delgroupuser'])){
-			$deleted = delGroupUser($_POST['user'],$_POST['group']);
-			if(is_string($deleted)) $errors = $deleted;
-		}
-		//addusergroup
-		if(isset($_POST['addusergroup'])){
-			$added = addGroupUser($_POST['user'],$_POST['groups']);
-			if(is_string($added)) $errors = $added;
-		}
-		$users = getUsers();
-		if(is_string($users)) $errors .= $users;
-		$groups = getGroups();
-		if(is_string($groups)) $errors .= $groups;
-	}
 
 
-	if($_GET['page'] == 'groups'){
-		include('work/groups.php');
-                
-		if(isset($_POST['createGroup'])){
-			$added = addGroup($_POST['name'],$_POST['users']);
-			if(is_string($added)) $errors = $added;
+		if($_GET['page'] == 'groups'){
+			include('work/groups.php');
+					
+			if(isset($_POST['createGroup'])){
+				$added = addGroup($_POST['name'],$_POST['users'],$_POST['role'],$_POST['devicegroups']);
+				if(is_string($added)) $errors = $added;
+			}
+			
+			if(isset($_POST['deleteGroup'])){
+				$deleted = deleteGroup($_POST['id']);
+				if(is_string($deleted)) $errors = $deleted;
+			}
+			if(isset($_POST['delgroupuser'])){
+				$deleted = delGroupUser($_POST['user'],$_POST['group']);
+				if(is_string($deleted)) $errors = $deleted;
+			}
+			if(isset($_POST['addusergroup'])){
+				$added = addGroupUser($_POST['users'],$_POST['group']);
+				if(is_string($added)) $errors = $added;
+			}
+			if(isset($_POST['deldevicegroup'])){
+				$deleted = delDeviceGroup($_POST['group'],$_POST['devicegroup']);
+				if(is_string($deleted)) $errors = $deleted;
+			}
+			
+			$users = getUsers();
+			if(is_string($users)) $errors .= $users;
+			$groups = getGroups();
+			if(is_string($groups)) $errors .= $groups;
+			$devicegroups = getDevicesGroups();
+			if(is_string($groups)) $errors .= $devicegroups;
+		}
+
+		if($_GET['page'] == 'devices'){
+			include('work/devices.php');
+			if(isset($_POST['deleteDevice'])){
+				$deleted = deleteDevice($_POST['id']);
+				if(is_string($deleted)) $errors = $deleted;
+			}
+			if(isset($_POST['delgroupdevice'])){
+				$deleted = delGroupDevice($_POST['device'],$_POST['group']);
+				if(is_string($deleted)) $errors = $deleted;
+			}
+			if(isset($_POST['adddevicegroup'])){
+				$added = addGroupDevice($_POST['device'],$_POST['groups']);
+				if(is_string($added)) $errors = $added;
+			}
+			$devices = getDevices();
+			if(is_string($devices)) $errors .= $devices;
+			$groups = getDevicesGroups();
+			if(is_string($groups)) $errors .= $devicesgroups;
 		}
 		
-		if(isset($_POST['deleteGroup'])){
-			$deleted = deleteGroup($_POST['id']);
-			if(is_string($deleted)) $errors = $deleted;
-		}
-		if(isset($_POST['delgroupuser'])){
-			$deleted = delGroupUser($_POST['user'],$_POST['group']);
-			if(is_string($deleted)) $errors = $deleted;
-		}
-		if(isset($_POST['addusergroup'])){
-			$added = addGroupUser($_POST['users'],$_POST['group']);
-			if(is_string($added)) $errors = $added;
-		}
-		$users = getUsers();
-        if(is_string($users)) $errors .= $users;
-        $groups = getGroups();
-        if(is_string($groups)) $errors .= $groups;
-	}
-
-	if($_GET['page'] == 'devices'){
-		include('work/devices.php');
-		if(isset($_POST['deleteDevice'])){
-			$deleted = deleteDevice($_POST['id']);
-			if(is_string($deleted)) $errors = $deleted;
-		}
-		if(isset($_POST['delgroupdevice'])){
-			$deleted = delGroupDevice($_POST['device'],$_POST['group']);
-			if(is_string($deleted)) $errors = $deleted;
-		}
-		if(isset($_POST['adddevicegroup'])){
-			$added = addGroupDevice($_POST['device'],$_POST['groups']);
-			if(is_string($added)) $errors = $added;
-		}
-		$devices = getDevices();
-        if(is_string($devices)) $errors .= $devices;
-        $groups = getDevicesGroups();
-        if(is_string($groups)) $errors .= $devicesgroups;
-	}
-	
-	if($_GET['page'] == 'devicesgroups'){
-		include('work/devicesgroups.php');
-		if(isset($_POST['createGroup'])){
-			$added = addGroup($_POST['name'],$_POST['devices']);
-			if(is_string($added)) $errors = $added;
+		if($_GET['page'] == 'devicesgroups'){
+			include('work/devicesgroups.php');
+			if(isset($_POST['createGroup'])){
+				$added = addGroup($_POST['name'],$_POST['devices']);
+				if(is_string($added)) $errors = $added;
+			}
+			
+			if(isset($_POST['deleteGroup'])){
+				$deleted = deleteGroup($_POST['id']);
+				if(is_string($deleted)) $errors = $deleted;
+			}
+			if(isset($_POST['delgroupdevice'])){
+				$deleted = delGroupDevice($_POST['device'],$_POST['group']);
+				if(is_string($deleted)) $errors = $deleted;
+			}
+			if(isset($_POST['adddevicegroup'])){
+				$added = addGroupDevice($_POST['devices'],$_POST['group']);
+				if(is_string($added)) $errors = $added;
+			}
+			$devices = getDevices();
+			if(is_string($devices)) $errors .= $devices;
+			$groups = getDevicesGroups();
+			if(is_string($groups)) $errors .= $groups;
 		}
 		
-		if(isset($_POST['deleteGroup'])){
-			$deleted = deleteGroup($_POST['id']);
-			if(is_string($deleted)) $errors = $deleted;
+		if($_GET['page'] == "logs"){
+			include('work/logs.php');
+			$logs = getLogs();
+			if(is_string($logs)) $errors .= $logs;
 		}
-		if(isset($_POST['delgroupdevice'])){
-			$deleted = delGroupDevice($_POST['device'],$_POST['group']);
-			if(is_string($deleted)) $errors = $deleted;
+		
+		if($_GET['page'] == 'logout'){
+			session_destroy();
+			header('Location: /');
+			die();
 		}
-		if(isset($_POST['adddevicegroup'])){
-			$added = addGroupDevice($_POST['devices'],$_POST['group']);
-			if(is_string($added)) $errors = $added;
-		}
-		$devices = getDevices();
-        if(is_string($devices)) $errors .= $devices;
-        $groups = getDevicesGroups();
-        if(is_string($groups)) $errors .= $groups;
-	}
+	} else $view = "401"; }
 	
-	if($_GET['page'] == "logs"){
-		include('work/logs.php');
-		$logs = getLogs();
-		if(is_string($logs)) $errors .= $logs;
-	}
-	
-	if($_GET['page'] == 'logout'){
-		session_destroy();
-		header('Location: /');
-		die();
-	}
 	/********* VIEWS ************/
 	if(!isset($view)){
 		if(in_array($_GET['page'],scandir('views'))) $view = $_GET['page'];

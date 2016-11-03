@@ -20,8 +20,25 @@
 			<input type="checkbox" name="users[]" value="<?= htmlentities($user["id"]) ?>" id="<?= htmlentities($user["username"]) ?>" />
 		      <label for="<?= htmlentities($user["username"]) ?>"><?php if($user["firstName"]!="" && $user["lastName"]!="") {echo htmlentities($user["firstName"]).' '.htmlentities($user["lastName"]);} else echo htmlentities($user["username"]); ?></label>&nbsp;&nbsp;&nbsp;
 <?php }} ?>
-		<br> <br><button class="btn waves-effect waves-light" type="submit">Submit
-		  </button>
+			<br> 
+			<br>
+			Add role :
+			<input name="role" value="none" type="radio" id="radio1" />
+			<label for="radio1">None</label>
+			<input name="role" value="viewer" type="radio" id="radio2" />
+			<label for="radio2">Viewer</label>
+			<input name="role" value="manager" type="radio" id="radio3" />
+			<label for="radio3">Manager</label>
+			<br>
+			To DeviceGroup : 
+<?php if(is_array($devicegroups)){
+	foreach($devicegroups as $devicegroup){		
+?>
+			<input type="checkbox" name="devicegroups[]" value="<?= htmlentities($devicegroup["id"]) ?>" id="<?= htmlentities($devicegroup["name"]) ?>" />
+		      <label for="<?= htmlentities($devicegroup["name"]) ?>"><?= htmlentities($devicegroup['name']) ?></label>&nbsp;&nbsp;&nbsp;
+<?php }} ?>
+			<br><br>
+			<button class="btn waves-effect waves-light" type="submit">Submit</button>
 		 </div>
 		</form>
 	     </div>
@@ -53,8 +70,23 @@
 		}
 ?>
 			<div class="chip"><span style="cursor:pointer" class="material-icons" onclick="add_form('<?= htmlentities($group['id']) ?>')">add</span></div>
+			</p><br>
+			<p>Role : <?= $group['role'] ? htmlentities($group['role']) : 'none' ?></p>
+			<p>To :
+<?php		if(count($group["devicesgroups"])>0){
+			foreach($group["devicesgroups"] as $devicegroup){
+				echo '<form class="col s3" action="/?page=groups" method="post" id="'.htmlentities($group["id"].$devicegroup['id']).'" onclick="showModal(this, \'md1\'); return false;">
+					<input type="hidden" name="deldevicegroup" value="1">
+					<input type="hidden" name="devicegroup" value="'.htmlentities($devicegroup['id']).'">
+					<input type="hidden" name="group" value="'.htmlentities($group['id']).'">
+					<div class="chip">'.htmlentities($devicegroup['name']).' <span type="submit" class="material-icons" style="zoom:75%;margin-bottom:-25px;cursor:pointer">clear</span></div>
+				</form>';
+			}
+		}
+?>
 			</p>
 			<div class="to_add_<?= htmlentities($group['id']) ?>"></div>
+			<div class="to_add_devicegroup_<?= htmlentities($group['id']) ?>"></div>
             </div>
           </div>
         </div>
@@ -82,8 +114,12 @@
             $('#' + modal + '_YesBtn').click(function(){ $('#' + modal).closeModal(); document.forms[but.id].submit();}); 
         }
 		function add_form(id){
-			$('.to_add_'+id).html('<br>Add user :<form action="?page=groups" method="post"><input type="hidden" name="addusergroup" value="1"><input type="hidden" name="group" value="'+ id +'"><?php if(is_array($groups)){
+			$('.to_add_'+id).html('<br><br>Add user :<form action="?page=groups" method="post"><input type="hidden" name="addusergroup" value="1"><input type="hidden" name="group" value="'+ id +'"><?php if(is_array($groups)){
 	foreach($users as $user){ $name = $user["firstName"] ? $user["firstName"].' '.$user["lastName"]	: $user["username"]; ?><input type="checkbox" name="users[]" value="<?= htmlentities($user["id"]) ?>" id="<?= htmlentities($user["username"]) ?>'+ id +'" /><label for="<?= htmlentities($user["username"]) ?>'+ id +'"><?= htmlentities($name) ?></label>&nbsp;&nbsp;&nbsp;<?php }} ?><button type="submit" class="waves-effect waves-light btn"><i class="material-icons right">add</i>add</button></form>');
+		}
+		function add_form_devicegroup(id){
+			$('.to_add_devicegroup_'+id).html('<br>Add device :<form action="?page=devicesgroups" method="post"><input type="hidden" name="adddevicegroup" value="1"><input type="hidden" name="group" value="'+ id +'"><?php if(is_array($groups)){
+	foreach($devices as $device){	$name = $device["name"] ? $device["name"] : $device["identifier"]; ?><input type="checkbox" name="devices[]" value="<?= htmlentities($device["id"]) ?>" id="<?= htmlentities($device["identifier"]) ?>'+ id +'" /><label for="<?= htmlentities($device["identifier"]) ?>'+ id +'"><?= htmlentities($name) ?></label>&nbsp;&nbsp;&nbsp;<?php }} ?><button type="submit" class="waves-effect waves-light btn"><i class="material-icons right">add</i>add</button></form>');
 		}
     </script>
 

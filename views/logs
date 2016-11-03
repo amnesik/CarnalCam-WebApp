@@ -1,0 +1,23 @@
+<br>
+
+<p style="text-align:right">Hello <b><?php echo htmlentities($_SESSION["firstName"])." ".htmlentities($_SESSION["lastName"]); ?></b></p>
+
+      <div class="row">
+        <div class="col s10 m10">
+			
+			
+			<div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+              <p class="card-title">Logs</p>
+<?php 
+		foreach($logs as $log){
+				echo "<div>";
+				echo "<h4>".htmlentities($log['description']).'</h4>';
+				echo "<p>Time : ".htmlentities($log['updatedAt']).'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Type: '.$log['type'].'</p>';
+				echo "</div><br>";
+		}
+ ?>
+			 </div>
+			 </div>
+        </div>
+      </div>
