@@ -71,8 +71,21 @@
 ?>
 			<div class="chip"><span style="cursor:pointer" class="material-icons" onclick="add_form('<?= htmlentities($group['id']) ?>')">add</span></div>
 			</p><br>
-			<p>Role : <?= $group['role'] ? htmlentities($group['role']) : 'none' ?></p>
-			<p>To :
+			<form action="?page=groups" method="post">
+			<p>Role :</p>
+			<div class="input-field">
+			<input type="hidden" name="group" value="<?= htmlentities($group['id']) ?>">
+			<p   style="width:200px;float:left">
+				<select name="role">
+				  <option value="none" <?= $group['role']=='none' ? 'selected' : '' ?>>None</option>
+				  <option value="viewer" <?= $group['role']=='viewer' ? 'selected' : '' ?>>Viewer</option>
+				  <option value="manager" <?= $group['role']=='manager' ? 'selected' : '' ?>>Manager</option>
+				</select></p>
+				<!--<label style="color:white;">Role</label>-->
+				<button class="btn waves-effect waves-light" type="submit">Update Role</button>
+			</div>
+			</form><br>
+			<div class="input-field"><p style='margin-'>To :</p>
 <?php		if(count($group["devicesgroups"])>0){
 			foreach($group["devicesgroups"] as $devicegroup){
 				echo '<form class="col s3" action="/?page=groups" method="post" id="'.htmlentities($group["id"].$devicegroup['id']).'" onclick="showModal(this, \'md1\'); return false;">
@@ -84,7 +97,8 @@
 			}
 		}
 ?>
-			</p>
+			<div class="chip"><span style="cursor:pointer" class="material-icons" onclick="add_form_devicegroup('<?= htmlentities($group['id']) ?>')">add</span></div>
+			</div>
 			<div class="to_add_<?= htmlentities($group['id']) ?>"></div>
 			<div class="to_add_devicegroup_<?= htmlentities($group['id']) ?>"></div>
             </div>
@@ -109,6 +123,10 @@
     <!--<a class="waves-effect waves-light btn" href="myLandingPage.html" >Proceed</a>-->
 
     <script>  
+	  $(document).ready(function() {
+		$('select').material_select();
+	});
+        
         function showModal(but, modal){  
             $('#' + modal).openModal(); 
             $('#' + modal + '_YesBtn').click(function(){ $('#' + modal).closeModal(); document.forms[but.id].submit();}); 
@@ -118,8 +136,8 @@
 	foreach($users as $user){ $name = $user["firstName"] ? $user["firstName"].' '.$user["lastName"]	: $user["username"]; ?><input type="checkbox" name="users[]" value="<?= htmlentities($user["id"]) ?>" id="<?= htmlentities($user["username"]) ?>'+ id +'" /><label for="<?= htmlentities($user["username"]) ?>'+ id +'"><?= htmlentities($name) ?></label>&nbsp;&nbsp;&nbsp;<?php }} ?><button type="submit" class="waves-effect waves-light btn"><i class="material-icons right">add</i>add</button></form>');
 		}
 		function add_form_devicegroup(id){
-			$('.to_add_devicegroup_'+id).html('<br>Add device :<form action="?page=devicesgroups" method="post"><input type="hidden" name="adddevicegroup" value="1"><input type="hidden" name="group" value="'+ id +'"><?php if(is_array($groups)){
-	foreach($devices as $device){	$name = $device["name"] ? $device["name"] : $device["identifier"]; ?><input type="checkbox" name="devices[]" value="<?= htmlentities($device["id"]) ?>" id="<?= htmlentities($device["identifier"]) ?>'+ id +'" /><label for="<?= htmlentities($device["identifier"]) ?>'+ id +'"><?= htmlentities($name) ?></label>&nbsp;&nbsp;&nbsp;<?php }} ?><button type="submit" class="waves-effect waves-light btn"><i class="material-icons right">add</i>add</button></form>');
+			$('.to_add_devicegroup_'+id).html('<br>Add device Group:<form action="?page=groups" method="post"><input type="hidden" name="adddevicegroup" value="1"><input type="hidden" name="group" value="'+ id +'"><?php if(is_array($devicegroups)){
+	foreach($devicegroups as $devicegroup){ ?><input type="checkbox" name="devicegroups[]" value="<?= htmlentities($devicegroup["id"]) ?>" id="<?= htmlentities($devicegroup["id"]) ?>'+ id +'" /><label for="<?= htmlentities($devicegroup["id"]) ?>'+ id +'"><?= htmlentities($devicegroup['name']) ?></label>&nbsp;&nbsp;&nbsp;<?php }} ?><button type="submit" class="waves-effect waves-light btn"><i class="material-icons right">add</i>add</button></form>');
 		}
     </script>
 

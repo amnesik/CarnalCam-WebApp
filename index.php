@@ -81,6 +81,14 @@ if(isset($_GET['page'])){
 				$deleted = delDeviceGroup($_POST['group'],$_POST['devicegroup']);
 				if(is_string($deleted)) $errors = $deleted;
 			}
+			if(isset($_POST['adddevicegroup'])){
+				$added = addDeviceGroup($_POST['group'],$_POST['devicegroups']);
+				if(is_string($added)) $errors = $added;
+			}
+			if(isset($_POST['role']) && isset($_POST['group'])){
+				$updated = updateRole($_POST['group'],$_POST['role']);
+				if(is_string($updated)) $errors = $updated;
+			}
 			
 			$users = getUsers();
 			if(is_string($users)) $errors .= $users;
