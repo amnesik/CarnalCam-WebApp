@@ -2,18 +2,12 @@
 
 function getUsers(){
 	$rep = curl('GET','/user',null,$_SESSION['token']);
-	if($rep[0] == "401") return "Session Timeout, Please authenticate...";
-	else if($rep[0] == "404") return "Error: curl returned 404 error...";
-	else if($rep[0] != "200") return "Error: Server connection issues....";
-        else return json_decode($rep[1],true);
+	return json_decode($rep,true);
 }
 
 function getGroups(){
         $rep = curl('GET','/userGroup',null,$_SESSION['token']);
-        if($rep[0] == "401") return "Session Timeout, Please authenticate...";
-        else if($rep[0] == "404") return "Error: curl returned 404 error...";
-        else if($rep[0] != "200") return "Error: Server connection issues....";
-        else return json_decode($rep[1],true);
+        return json_decode($rep,true);
 }
 
 function addUser($firstName,$lastName,$email,$user,$pass1,$pass2,$idgroup){
@@ -29,49 +23,37 @@ function addUser($firstName,$lastName,$email,$user,$pass1,$pass2,$idgroup){
 					"groups" => $idgroup
 				);
 				$rep = curl('POST','/user',$datas,$_SESSION['token']);
-				if($rep[0] == "401") return "Session Timeout, Please authenticate...";
-			        else if($rep[0] == "404") return "Error: curl returned 404 error...";
-			        else if($rep[0] != "201") return "Error: Server connection issues....";
-				else return true;
+				return true;
 			}
-			else return "Error: Password must be at least 6 characters long";
+			else $GLOBALS['errors'] =  "Error: Password must be at least 6 characters long";
 		}
-		else return "Error: both passwords are not same...";
+		else $GLOBALS['errors'] =  "Error: both passwords are not same...";
 	}
-	else return "Error: Please specify all champs...";
+	else $GLOBALS['errors'] =  "Error: Please specify all champs...";
 }
 
 function deleteUser($id){
 	if($id != ""){
 		$rep = curl('DELETE',"/user/$id",null,$_SESSION['token']);
-		if($rep[0] == "401") return "Session Timeout, Please authenticate...";
-		else if($rep[0] == "404") return "Error: curl returned 404 error...";
-		else if(!strstr($rep[0],"20")) return "Error: Server connection issues....";
-		else return true;
+		return true;
 	}
-	else return "Error: no user id specified...";
+	else $GLOBALS['errors'] =  "Error: no user id specified...";
 }
 
 function delGroupUser($user,$group){
 	if($user != "" && $group != ""){
 		$rep = curl('DELETE',"/user/removegroup/$user",array("groups"=>$group),$_SESSION['token']);
-		if($rep[0] == "401") return "Session Timeout, Please authenticate...";
-		else if($rep[0] == "404") return "Error: curl returned 404 error...";
-		else if(!strstr($rep[0],"20")) return "Error: Server connection issues....";
-		else return true;
+		return true;
 	}
-	else return "Error: user and id are null....";
+	else $GLOBALS['errors'] =  "Error: user and id are null....";
 }
 
 function addGroupUser($user,$groups){
 	if($user != "" && count($groups)>0){
 		foreach($groups as $group){
 			$rep = curl('POST',"/user/$user/groups/$group",null,$_SESSION['token']);
-			if($rep[0] == "401") return "Session Timeout, Please authenticate...";
-			else if($rep[0] == "404") return "Error: curl returned 404 error...";
-			else if(!strstr($rep[0],"20") && $rep[0] != "500") return "Error: Server connection issues....";
 		}
 		return true;
 	}
-	else return "Error: group and id are null....";
+	else $GLOBALS['errors'] =  "Error: group and id are null....";
 }

@@ -42,7 +42,12 @@ function curl($method, $url, $datas, $token){
 	if(isset($_GET['debug'])) echo $token."\n".$curl_rep;
         $status_code = substr($curl_rep,strpos($curl_rep,"< HTTP/1.1 ")+11,3);
 	$reponse = explode("left intact\n",$curl_rep)[1];
-	return array($status_code,$reponse);
+	//$GLOBALS['errors'] = "WARNING, ALERTE, ALERTE....!!!!!!";
+	if($status_code == "401") $GLOBALS['errors'] = "Session Timeout, Please authenticate...";
+	else if($status_code == "404") $GLOBALS['errors'] = "Error: curl returned 404 error...";
+	else if(substr($status_code,0,2) != "20") $GLOBALS['errors'] = "Error: Server connection issues....";
+	
+	return $reponse;
 }
 
 
